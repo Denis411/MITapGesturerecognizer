@@ -97,7 +97,7 @@ private extension ViewController {
     }
     
     private func increateColorCount() {
-        switch chosenColor {
+        switch chosenColor { // Do not use force unwrap
         case .blue:
             colorUsed[.blue]! += 1
         case .red:
