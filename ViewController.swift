@@ -68,6 +68,7 @@ private extension ViewController {
     }
     
     @objc func handleOnVCTap(sender: UITapGestureRecognizer) {
-        
+        let position = sender.location(in: view)
+        addViewOnHandlingTap(at: position, with: chosenColor)
     }
 }
