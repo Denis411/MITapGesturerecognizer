@@ -18,10 +18,7 @@ class ViewController: UIViewController {
     }()
     
     private var chosenColor: UIColor = .black
-    
-    private var blueCount = 0
-    private var redCount = 0
-    private var blackCount = 0
+    private var colorUsed : [UIColor : Int] = [.black: 0, .blue: 0, .red: 0]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,36 +62,47 @@ private extension ViewController {
     }
     
     func addViewOnHandlingTap(at point: CGPoint, with color: UIColor) {
+        guard let colorCount = getColorCount(color) else {
+            return
+        }
+        
         let frameForAddingView = CGRect(x: point.x, y: point.y, width: 50, height: 50)
         let addingView = UILabel(frame: frameForAddingView)
+        addingView.text = String(colorCount)
         addingView.textAlignment = .center
-        
-        switch chosenColor {
-        case .blue:
-            addingView.text = String(blueCount)
-        case .red:
-            addingView.text = String(redCount)
-        case .black:
-            addingView.text = String(blackCount)
-        default:
-            addingView.text = ""
-        }
         
         addingView.backgroundColor = color
         view.addSubview(addingView)
     }
     
+    private func getColorCount(_ color: UIColor) -> Int? {
+        switch color {
+        case .blue:
+            return colorUsed[.blue]
+        case .red:
+            return colorUsed[.red]
+        case .black:
+            return colorUsed[.black]
+        default:
+            return nil
+        }
+    }
+    
     @objc func handleOnVCTap(sender: UITapGestureRecognizer) {
         let position = sender.location(in: view)
         addViewOnHandlingTap(at: position, with: chosenColor)
+        increateColorCount()
         
+    }
+    
+    private func increateColorCount() {
         switch chosenColor {
         case .blue:
-            blueCount += 1
+            colorUsed[.blue]! += 1
         case .red:
-            redCount += 1
+            colorUsed[.red]! += 1
         case .black:
-            blackCount += 1
+            colorUsed[.black]! += 1
         default:
             assertionFailure()
         }
