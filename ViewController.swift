@@ -49,3 +49,13 @@ private extension ViewController {
         
     }
 }
+
+// MARK: -- Focus here
+extension ViewController {
+    private func addViewOnTap(at point: CGPoint, with color: UIColor) {
+        let frameForAddingView = CGRect(x: point.x, y: point.y, width: 50, height: 50)
+        let addingView = UIView(frame: frameForAddingView)
+        addingView.backgroundColor = color
+        view.addSubview(addingView)
+    }
+}
