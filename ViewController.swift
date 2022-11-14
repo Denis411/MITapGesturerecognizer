@@ -18,6 +18,10 @@ class ViewController: UIViewController {
     }()
     
     private var chosenColor: UIColor = .black
+    
+    private var blueCount = 0
+    private var redCount = 0
+    private var blackCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +66,20 @@ private extension ViewController {
     
     func addViewOnHandlingTap(at point: CGPoint, with color: UIColor) {
         let frameForAddingView = CGRect(x: point.x, y: point.y, width: 50, height: 50)
-        let addingView = UIView(frame: frameForAddingView)
+        let addingView = UILabel(frame: frameForAddingView)
+        addingView.textAlignment = .center
+        
+        switch chosenColor {
+        case .blue:
+            addingView.text = String(blueCount)
+        case .red:
+            addingView.text = String(redCount)
+        case .black:
+            addingView.text = String(blackCount)
+        default:
+            addingView.text = ""
+        }
+        
         addingView.backgroundColor = color
         view.addSubview(addingView)
     }
@@ -70,5 +87,16 @@ private extension ViewController {
     @objc func handleOnVCTap(sender: UITapGestureRecognizer) {
         let position = sender.location(in: view)
         addViewOnHandlingTap(at: position, with: chosenColor)
+        
+        switch chosenColor {
+        case .blue:
+            blueCount += 1
+        case .red:
+            redCount += 1
+        case .black:
+            blackCount += 1
+        default:
+            assertionFailure()
+        }
     }
 }
