@@ -16,11 +16,14 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 5
         return button
     }()
+    
+    private var chosenColor: UIColor = .black
 
     override func viewDidLoad() {
         super.viewDidLoad()
         addButtons()
         view.backgroundColor = .gray
+        addGestureRecognizerForView()
     }
 }
 
@@ -42,20 +45,29 @@ private extension ViewController {
     }
     
     @objc func handleBlueButtonTap() {
-        
+        chosenColor = .blue
     }
     
     @objc func handleRedButtonTap() {
-        
+        chosenColor = .red
     }
 }
 
 // MARK: -- Focus here
-extension ViewController {
-    private func addViewOnTap(at point: CGPoint, with color: UIColor) {
+private extension ViewController {
+    func addGestureRecognizerForView() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleOnVCTap))
+        view.addGestureRecognizer(recognizer)
+    }
+    
+    func addViewOnHandlingTap(at point: CGPoint, with color: UIColor) {
         let frameForAddingView = CGRect(x: point.x, y: point.y, width: 50, height: 50)
         let addingView = UIView(frame: frameForAddingView)
         addingView.backgroundColor = color
         view.addSubview(addingView)
+    }
+    
+    @objc func handleOnVCTap(sender: UITapGestureRecognizer) {
+        
     }
 }
