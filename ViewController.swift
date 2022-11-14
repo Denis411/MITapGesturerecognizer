@@ -67,6 +67,7 @@ private extension ViewController {
         }
         
         let frameForAddingView = CGRect(x: point.x, y: point.y, width: 50, height: 50)
+//      could youse fly weight
         let addingView = UILabel(frame: frameForAddingView)
         addingView.text = String(colorCount)
         addingView.textAlignment = .center
